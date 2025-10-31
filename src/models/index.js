@@ -1,5 +1,7 @@
 const { Sequelize } = require("sequelize");
 const User = require("./user");
+const Post = require("userPost.js");
+const Comment = require("userComment.js");
 
 const sequelize = new Sequelize(
     process.env.DB_NAME,
@@ -12,9 +14,7 @@ const sequelize = new Sequelize(
 );
 
 //Import des modèles
-const User = require("./user");
-const Post = require("./post");
-const Comment = require("./comment");
+
 
 //Synchroisation des modèles avec la base de données.
 sequelize.sync({alter: true})//Mets à jours la base de données automatiquement.

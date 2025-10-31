@@ -11,12 +11,12 @@ services:
       - db
     volumes: #Permet à docker de voir les fichiers du projets(utile pour hot-reload).
       - .:/app
-    command: sh -c "npm install && npm start" #Installe les dépendances et démarre l'API.
+    command: sh -c "npm install && npm run dev" #command: sh -c "npm install && npm start" #Installe les dépendances et démarre l'API.
 
   db:
     image: postgres:15 #Utilise l'image officielle de PostgreSQL version 15.
     container_name: postgres_db
-    retsart: always
+    restart: always
     environment: #Variables d'environnement pour créer la base et l'utilisateur.
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres

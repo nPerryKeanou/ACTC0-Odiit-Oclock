@@ -8,6 +8,8 @@ WORKDIR /app
 # Installer les dépendances
 COPY package*.json ./
 RUN npm install
+#installer les dépendances + nodemon
+#RUN npm install && npm install --save-dev nodemon
 
 # Copier le reste du projet
 COPY . .
@@ -16,4 +18,4 @@ COPY . .
 EXPOSE 3000
 
 # Commande par défaut.Lance le serveur Node.js.
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
