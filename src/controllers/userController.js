@@ -1,10 +1,8 @@
 import User from '../models/user.js';
 import { Op } from 'sequelize';
-//const { User } = require('../models/user.js');
-//const sqlz = require('sequelize');
 
 // Crée un nouvel utilisateur
-exports.createUser = async (req, res) => {
+export const createUser = async (req, res) => {
     try {
         const { username, email, passwordHash, professionalSector, bio } = req.body;
         if(!username || !email || !passwordHash) {
@@ -18,7 +16,7 @@ exports.createUser = async (req, res) => {
 };
 
 // Récupère tous les utilisateurs
-exports.getAllUsers = async (req, res) => {
+export const getAllUsers = async (req, res) => {
     try {
         const users = await User.findAll();
         res.status(200).json(users);
@@ -28,7 +26,7 @@ exports.getAllUsers = async (req, res) => {
 };
 
 // Récupère un utilisateur par son ID
-exports.getUserById = async (req, res) => {
+export const getUserById = async (req, res) => {
     try {
         if(!req.params.id || isNaN(req.params.id)) {
             return res.status(400).json({ error: 'ID utilisateur invalide.' });
@@ -45,7 +43,7 @@ exports.getUserById = async (req, res) => {
 };
 
 // Récupérer un utilisateur par son email
-exports.getUserByEmail = async (req, res) => {
+export const getUserByEmail = async (req, res) => {
     try {
         if(!req.params.email) {
             return res.status(400).json({ error: 'Email utilisateur invalide.' });
@@ -73,7 +71,7 @@ exports.getUserByEmail = async (req, res) => {
 - sinon : renvoie 404 avec { error: 'Utilisateur non trouvé.' }.
 - catch : renvoie 500 et un message d'erreur générique.
 */
-exports.updateUser = async (req, res) => {
+export const updateUser = async (req, res) => {
     try {
         const { username, email, passwordHash, professionalSector, bio } = req.body;
         if(!req.params.id || isNaN(req.params.id)) {
@@ -99,7 +97,7 @@ exports.updateUser = async (req, res) => {
 //deleted contient le nombre de lignes supprimées (0 ou 1)
 //Si deleted est truthy (> 0) : renvoie un statut 200 avec message de succès
 //Si deleted est falsy (0) : renvoie un statut 404 car l'utilisateur n'existe pas
-exports.deleteUser = async (req, res) => {
+export const deleteUser = async (req, res) => {
     try {
         if(!req.params.id || isNaN(req.params.id)) {
             return res.status(400).json({ error: 'ID utilisateur invalide.' });
@@ -125,7 +123,7 @@ exports.deleteUser = async (req, res) => {
  * Utilisation appropriée des opérateurs Sequelize pour la recherche insensible à la casse
 
  */
-exports.searchUsersBySector = async (req, res) => {
+export const searchUsersBySector = async (req, res) => {
     try {
         const { sector } = req.query;
         if(!sector) {

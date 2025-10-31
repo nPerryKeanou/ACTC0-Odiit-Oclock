@@ -1,6 +1,9 @@
-const { DataTypes } = require("sequelize");
-const { sequelize } = require("./index");
-const User = require("./user");
+// const { DataTypes } = require("sequelize");
+// const { sequelize } = require("./index");
+// const User = require("./user");
+import { DataTypes } from "sequelize";
+import { sequelize } from "./index.js";
+import User from "./user.js";
 
 const UserPost = sequelize.define("UserPost", {
   id: {
@@ -29,4 +32,4 @@ const UserPost = sequelize.define("UserPost", {
 User.hasMany(Post, { foreignKey: "userId", onDelete: "CASCADE" });
 Post.belongsTo(User, { foreignKey: "userId" });
 
-module.exports = UserPost;
+export default UserPost;
