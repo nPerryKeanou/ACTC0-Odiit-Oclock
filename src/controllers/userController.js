@@ -1,5 +1,7 @@
-const { User } = require('../models/user.js');
-const sqlz = require('sequelize');
+import User from '../models/user.js';
+import { Op } from 'sequelize';
+//const { User } = require('../models/user.js');
+//const sqlz = require('sequelize');
 
 // Crée un nouvel utilisateur
 exports.createUser = async (req, res) => {
@@ -134,7 +136,7 @@ exports.searchUsersBySector = async (req, res) => {
         const users = await User.findAll({
             where: {
                 professionalSector: {
-                    [sqlz.Op.iLike]: `%${sector}%`
+                    [Op.iLike]: `%${sector}%`
                 }
             },
             attributes: ['id', 'username', 'email', 'professionalSector', 'bio'], // Spécifier les champs à retourner
