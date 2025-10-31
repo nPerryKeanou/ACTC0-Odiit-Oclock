@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  api:
+    build: . #utilise ton Dockerfile à la racine.
+    container_name: node_api #nom du conteneur pour l'API Node.js.
+    ports: #Expose le port 3000 pour l'API.
+      - "3000:3000"
+    env_file: .env #Recupère la variables d'environnement depuis le fichier .env.
+    depends_on: #On attend que postegeSQL soit prêt avant de démarrer l'API.
+      - db
+    volumes: #Permet à docker de voir les fichiers du projets(utile pour hot-reload).
+      - .:/app
+    command: sh -c "npm install && npm start" #Installe les dépendances et démarre l'API.
+
+  db:
+    image: postgres:15 #Utilise l'image officielle de PostgreSQL version 15.
+    container_name: postgres_db
+    retsart: always
+    environment: #Variables d'environnement pour créer la base et l'utilisateur.
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: api_db
+    ports: #Permet de se onnecter à PostgreSQL depuis l'extérieur du conteneur.(via la machine hôte)
+      - "5432:5432"
+    volumes: #Volume pour persister les données de PostgreSQL.
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
