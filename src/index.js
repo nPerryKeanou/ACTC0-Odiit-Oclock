@@ -4,9 +4,18 @@ import { sequelize } from "./models/index.js";
 import userRouter from "./routes/userRouter.js";
 
 dotenv.config();
-
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Health check endpoint pour vérifier la connexion à la base de données avant de traiter les requêtes.
+app.get('/health', async (req, res) => {
+  try {
+    await sequelize.authenticate(); // Teste la connexion à la BDD
+    res.status(200).send('OK');
+  } catch (error) {
+    res.status(503).send('Service Unavailable');
+  }
+});
 
 app.use(express.json());
 app.use("/api", userRouter);
