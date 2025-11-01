@@ -1,6 +1,3 @@
-// const { DataTypes } = require("sequelize");
-// const { sequelize } = require("./index");
-// const User = require("./user");
 import { DataTypes } from "sequelize";
 import { sequelize } from "./index.js";
 import User from "./user.js";
@@ -29,7 +26,7 @@ const UserPost = sequelize.define("UserPost", {
 });
 
 // Relation : un utilisateur peut avoir plusieurs posts
-User.hasMany(Post, { foreignKey: "userId", onDelete: "CASCADE" });
-Post.belongsTo(User, { foreignKey: "userId" });
+User.hasMany(UserPost, { foreignKey: "userId", onDelete: "CASCADE" });
+UserPost.belongsTo(User, { foreignKey: "userId" });
 
 export default UserPost;

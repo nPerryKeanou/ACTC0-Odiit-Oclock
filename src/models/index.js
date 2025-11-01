@@ -1,7 +1,7 @@
 import User from "./user.js";
 import Post from "./userPost.js";
 import Comment from "./userComment.js";
-import sequelize from "./config/database.js";
+import sequelize from "../config/db.js";
 
 
 

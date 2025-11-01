@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "./index.js";
 import User from "./user.js";
-import Post from "./userPost.js";
+import UserPost from "./userPost.js";
 
 
 const UserComment = sequelize.define("UserCommentary", {
@@ -28,10 +28,10 @@ const UserComment = sequelize.define("UserCommentary", {
 });
 
 // Relations
-User.hasMany(Comment, { foreignKey: "userId", onDelete: "CASCADE" });
-Comment.belongsTo(User, { foreignKey: "userId" });
+User.hasMany(UserComment, { foreignKey: "userId", onDelete: "CASCADE" });
+UserComment.belongsTo(User, { foreignKey: "userId" });
 
-Post.hasMany(Comment, { foreignKey: "postId", onDelete: "CASCADE" });
-Comment.belongsTo(Post, { foreignKey: "postId" });
+UserPost.hasMany(UserComment, { foreignKey: "postId", onDelete: "CASCADE" });
+UserComment.belongsTo(UserPost, { foreignKey: "postId" });
 
 export default UserComment;
