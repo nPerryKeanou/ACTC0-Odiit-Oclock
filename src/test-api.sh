@@ -20,16 +20,16 @@ echo "4. Récupérer un utilisateur par email"
 curl "$API_URL/users/email/test@example.com"
 echo -e "\n"
 
-echo "5. Mettre à jour un utilisateur par ID (ex: 1)"
-curl -X PUT "$API_URL/users/1" \
-  -H "Content-Type: application/json" \
-  -d '{"username":"updateduser", "email":"updated@example.com", "professionalSector":"Finance"}'
-echo -e "\n"
+# echo "5. Mettre à jour un utilisateur par ID (ex: 1)"
+# curl -X PUT "$API_URL/users/1" \
+#   -H "Content-Type: application/json" \
+#   -d '{"username":"updateduser", "email":"updated@example.com", "professionalSector":"Finance"}'
+# echo -e "\n"
 
-echo "6. Supprimer un utilisateur par ID (ex: 1)"
-curl -X DELETE "$API_URL/users/1"
-echo -e "\n"
+# echo "6. Supprimer un utilisateur par ID (ex: 1)"
+# curl -X DELETE "$API_URL/users/1"
+# echo -e "\n"
 
-echo "7. Recherche utilisateurs par secteur"
-curl "$API_URL/users/search?sector=IT"
-echo -e "\n"
+# echo "7. Recherche utilisateurs par secteur"
+# curl "$API_URL/users/search?sector=IT"
+# echo -e "\n"

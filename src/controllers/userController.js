@@ -1,17 +1,58 @@
 import User from '../models/user.js';
 import { Op } from 'sequelize';
+import bcrypt from 'bcrypt';
 
 // Crée un nouvel utilisateur
+// newUser.toJSON() convertit l'instance Sequelize en objet JavaScript standard
+// La destructuration fait deux choses :
+// passwordHash: _ capture le champ passwordHash dans une variable nommée _ (par convention, _ signifie "on ignore cette valeur")
+// ...userWithoutPassword capture tous les autres champs dans un nouvel objet
+// C'est une façon élégante d'exclure le passwordHash de la réponse API pour des raisons de sécurité. On ne veut jamais renvoyer le hash du mot de passe au client, même s'il est hashé.
 export const createUser = async (req, res) => {
     try {
-        const { username, email, passwordHash, professionalSector, bio } = req.body;
-        if(!username || !email || !passwordHash) {
-            return res.status(400).json({ error: 'Les champs username, email et passwordHash sont obligatoires.' });
-        };
-        const newUser = await User.create({ username, email, passwordHash, professionalSector, bio });
-        res.status(201).json(newUser);
+        const { username, email, password, professionalSector, bio } = req.body;
+        
+        // Validation des champs obligatoires
+        if(!username || !email || !password) {
+            return res.status(400).json({ 
+                error: 'Les champs username, email et password sont obligatoires.' 
+            });
+        }
+
+        // Validation basique du format email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ error: 'Format d\'email invalide.' });
+        }
+        
+        // Hash du mot de passe
+        const passwordHash = await bcrypt.hash(password, 10);
+        
+        // Création de l'utilisateur
+        const newUser = await User.create({ 
+            username, 
+            email, 
+            passwordHash,
+            professionalSector, 
+            bio 
+        });
+        
+        // Retourne l'utilisateur sans le hash du mot de passe
+        const { passwordHash: _, ...userWithoutPassword } = newUser.toJSON();
+        res.status(201).json(userWithoutPassword);
+        
     } catch (error) {
-        res.status(500).json({ error: 'Erreur lors de la création de l\'utilisateur.' });
+        // Gestion des erreurs de contrainte unique (email par exemple)
+        if (error.name === 'SequelizeUniqueConstraintError') {
+            return res.status(400).json({ 
+                error: 'Un utilisateur avec cet email existe déjà.' 
+            });
+        }
+        
+        console.error('Erreur création utilisateur:', error);
+        res.status(500).json({ 
+            error: 'Erreur lors de la création de l\'utilisateur.' 
+        });
     }
 };
 
