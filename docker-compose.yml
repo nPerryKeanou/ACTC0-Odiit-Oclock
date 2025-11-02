@@ -7,6 +7,7 @@ services:
     ports: #Expose le port 3000 pour l'API.
       - "3000:3000"
     env_file: .env #Recupère la variables d'environnement depuis le fichier .env.
+    environment: JWT_SECRET=${JWT_SECRET} #ou directement depuis les variables d'environnement.
     depends_on: #On attend que postegeSQL soit prêt avant de démarrer l'API.
       - db
     volumes: #Permet à docker de voir les fichiers du projets(utile pour hot-reload).
