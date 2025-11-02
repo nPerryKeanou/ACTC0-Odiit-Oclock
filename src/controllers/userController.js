@@ -1,6 +1,13 @@
 import User from '../models/user.js';
 import { Op } from 'sequelize';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
+// Clé secrète pour JWT
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+    throw new Error('Missing JWT_SECRET env variable — set it in .env or your environment');
+}
 
 // Crée un nouvel utilisateur
 // newUser.toJSON() convertit l'instance Sequelize en objet JavaScript standard
