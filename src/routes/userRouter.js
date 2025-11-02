@@ -8,6 +8,7 @@ import { getAllUsers,
         deleteUser,
         searchUsersBySector } from "../controllers/userController.js";
 import { verifyToken } from "../middleware/authMiddleware.js";
+import { loginUser } from "../controllers/authController.js";
 
 
 const userRouter = express.Router();

@@ -17,7 +17,7 @@ Pour pouvoir révoquer des tokens, inclure tokenVersion dans le payload ou stock
  */
 
 import bcrypt from 'bcrypt';
-import { User } from '../models/user.js';
+import  User from '../models/user.js';
 import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET;
