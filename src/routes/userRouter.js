@@ -10,6 +10,7 @@ import { getAllUsers,
 import { verifyToken } from "../middleware/authMiddleware.js";
 import { loginUser } from "../controllers/authController.js";
 
+// const authRouter = express.Router();
 
 const userRouter = express.Router();
 

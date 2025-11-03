@@ -6,7 +6,7 @@ API_URL="http://localhost:3000"
 echo "1. Créer un utilisateur"
 curl -X POST "$API_URL/users" \
   -H "Content-Type: application/json" \
-  -d '{"username":"testuser", "email":"test@example.com", "passwordHash":"hashedpass", "professionalSector":"IT", "bio":"Bio de test"}'
+  -d '{"username":"testuser", "email":"test@example.com", "password":"password123", "professionalSector":"IT", "bio":"Bio de test"}'
 echo -e "\n"
 
 # Obtenir un token d'authentification

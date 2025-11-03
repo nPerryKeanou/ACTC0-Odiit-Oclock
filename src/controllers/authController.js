@@ -25,7 +25,7 @@ if (!JWT_SECRET) {
     throw new Error('Missing JWT_SECRET');
 }
 
-export const loginUser = async (req, res) => {
+const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -66,3 +66,5 @@ export const loginUser = async (req, res) => {
         });
     }
 };
+
+export { loginUser };
